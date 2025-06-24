@@ -13,6 +13,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     Optional<UserEntity> findByRefreshToken(String refreshToken); 
     Optional<UserEntity> findByEmail(String email); 
     Optional<UserEntity> findByEmailAndPassword(String email, String password);
-    Optional<UserEntity> findByUserAndTag(String user, String tag);
-    List<UserEntity> findAllByUser(String user);
+    Optional<UserEntity> findByUsernameAndTag(String username, String tag);
+    List<UserEntity> findAllByUsername(String username);
 }

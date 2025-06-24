@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.olimpo.DTO.Requests.LoginRequestDTO;
-import com.olimpo.DTO.Requests.RegisterRequestDTO;
+import com.olimpo.DTO.Requests.Auth.LoginRequestDTO;
+import com.olimpo.DTO.Requests.Auth.RegisterRequestDTO;
 import com.olimpo.DTO.Responses.APIResponse;
 import com.olimpo.Routes.APIRoutes;
 import com.olimpo.Services.AuthenticationService;

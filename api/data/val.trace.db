@@ -1,0 +1,3 @@
+2025-06-23 13:12:22.778294+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "TIMESTAMP '2025-06-23 13:12:22.77423' (FRIENDSHIP: ""CREATED_AT"" BINARY VARYING(255))"; SQL statement:
+insert into friendship (created_at,receiver_id,sender_id,status,id) values (localtimestamp,?,?,?,default) [22018-232]

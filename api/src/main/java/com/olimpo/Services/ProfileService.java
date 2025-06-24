@@ -7,11 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.olimpo.DTO.Requests.UpdateProfileRequestDTO;
+import com.olimpo.DTO.Requests.Profile.UpdateProfileRequestDTO;
 import com.olimpo.DTO.Responses.APIResponse;
-import com.olimpo.DTO.Responses.GetProfileResponse;
-import com.olimpo.Entity.AccountStatus;
+import com.olimpo.DTO.Responses.Profile.GetProfileResponse;
 import com.olimpo.Entity.UserEntity;
+import com.olimpo.Enums.AccountStatus;
 import com.olimpo.Repository.UserRepository;
 import com.olimpo.Utils.PasswordUtils;
 import com.olimpo.Utils.ProfileUtils;
@@ -43,7 +43,7 @@ public class ProfileService {
 
     public ResponseEntity<APIResponse> getProfileByUserAndTag(String user, String tag) {
         try {
-            Optional<UserEntity> userSearched = userRepository.findByUserAndTag(user, tag);
+            Optional<UserEntity> userSearched = userRepository.findByUsernameAndTag(user, tag);
 
             if(userSearched.isEmpty()) {
                 return ResponseUtils.notFound(ResponseUtils.USER_NOT_FOUND);
@@ -54,7 +54,7 @@ public class ProfileService {
                                 : null;
 
             return ResponseEntity.ok(new GetProfileResponse(
-                userSearched.get().getUser(),
+                userSearched.get().getUsername(),
                 userSearched.get().getTag(),
                 userEmail,
                 userSearched.get().getDescription(),
@@ -75,7 +75,7 @@ public class ProfileService {
             UserEntity user = ProfileUtils.getUserOrThrow(userRepository, email);
 
             return ResponseEntity.ok(new GetProfileResponse(
-                user.getUser(),
+                user.getUsername(),
                 user.getTag(),
                 user.getEmail(),
                 user.getDescription(),
@@ -135,7 +135,7 @@ public class ProfileService {
             return ResponseUtils.unauthorized("Senha antiga inválida.");
         }
 
-        Optional<UserEntity> existingUser = userRepository.findByUserAndTag(request.getNewUsername(), request.getNewTag());
+        Optional<UserEntity> existingUser = userRepository.findByUsernameAndTag(request.getNewUsername(), request.getNewTag());
         if(!existingUser.isEmpty()) {
             return ResponseUtils.conflict(ResponseUtils.USERNAME_TAG_IN_USE);
         }
@@ -145,7 +145,7 @@ public class ProfileService {
 
     // Private Methods - Profile Management
     private void updateUserProfile(UserEntity user, UpdateProfileRequestDTO request) {
-        user.setUser(request.getNewUsername());
+        user.setUsername(request.getNewUsername());
         user.setTag(request.getNewTag());
         user.setDescription(request.getNewDescription());
         user.setPassword(PasswordUtils.getEncodedPassword(request.getNewPassword()));

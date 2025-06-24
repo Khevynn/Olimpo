@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.olimpo.Entity.AccountStatus;
 import com.olimpo.Entity.UserEntity;
+import com.olimpo.Enums.AccountStatus;
 import com.olimpo.Repository.UserRepository;
 
 public class ProfileUtils {
@@ -23,6 +23,10 @@ public class ProfileUtils {
     public static Boolean isAccountBannedOrDeleted(UserEntity user) {
         return user.getAccountStatus() != AccountStatus.Activated;
     }
+    public static Boolean isAccountBannedOrDeleted(UserRepository userRepository, String email) {
+        UserEntity user = getUserOrThrow(userRepository, email);
+        return user.getAccountStatus() != AccountStatus.Activated;
+    }
 
     public static String generateUniqueTag(List<UserEntity> existingUsers) {
         Set<String> usedTags = extractUsedTags(existingUsers);
@@ -31,6 +35,10 @@ public class ProfileUtils {
 
     public static UserEntity getUserOrThrow(UserRepository userRepository, String email) {
         return userRepository.findByEmail(email)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado."));
+    }
+    public static UserEntity getUserOrThrow(UserRepository userRepository, String username, String tag) {
+        return userRepository.findByUsernameAndTag(username, tag)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado."));
     }
 

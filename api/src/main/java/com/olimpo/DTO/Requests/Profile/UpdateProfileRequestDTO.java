@@ -1,4 +1,4 @@
-package com.olimpo.DTO.Requests;
+package com.olimpo.DTO.Requests.Profile;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

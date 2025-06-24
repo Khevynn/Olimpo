@@ -7,11 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
-import com.olimpo.DTO.Requests.LoginRequestDTO;
-import com.olimpo.DTO.Requests.RegisterRequestDTO;
+import com.olimpo.DTO.Requests.Auth.LoginRequestDTO;
+import com.olimpo.DTO.Requests.Auth.RegisterRequestDTO;
 import com.olimpo.DTO.Responses.APIResponse;
-import com.olimpo.Entity.AccountStatus;
 import com.olimpo.Entity.UserEntity;
+import com.olimpo.Enums.AccountStatus;
 import com.olimpo.Repository.UserRepository;
 import com.olimpo.Utils.PasswordUtils;
 import com.olimpo.Utils.ProfileUtils;
@@ -144,13 +144,13 @@ public class AuthenticationService {
     }
 
     private String generateUserTag(String username) {
-        return ProfileUtils.generateUniqueTag(userRepository.findAllByUser(username));
+        return ProfileUtils.generateUniqueTag(userRepository.findAllByUsername(username));
     }
 
     private UserEntity createNewUser(RegisterRequestDTO request, String tag) {
         UserEntity user = new UserEntity();
         user.setEmail(request.getEmail());
-        user.setUser(request.getUser());
+        user.setUsername(request.getUser());
         user.setTag(tag);
         user.setPassword(PasswordUtils.getEncodedPassword(request.getPassword()));
         user.setAccountStatus(AccountStatus.Activated);

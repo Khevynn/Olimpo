@@ -1,4 +1,6 @@
-package com.olimpo.DTO.Responses;
+package com.olimpo.DTO.Responses.Auth;
+
+import com.olimpo.DTO.Responses.APIResponse;
 
 import lombok.Getter;
 

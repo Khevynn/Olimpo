@@ -33,9 +33,15 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, APIRoutes.USER_LOGIN_ROUTE).permitAll()
                         .requestMatchers(HttpMethod.POST, APIRoutes.USER_REGISTER_ROUTE).permitAll()
                         .requestMatchers(HttpMethod.GET, APIRoutes.USER_LOGOUT_ROUTE).authenticated()
+                        
                         .requestMatchers(APIRoutes.USER_GET_PROFILE_ROUTE).authenticated()
                         .requestMatchers(APIRoutes.USER_UPDATE_PROFILE_ROUTE).authenticated()
                         .requestMatchers(APIRoutes.USER_DELETE_ROUTE).authenticated()
+
+                        .requestMatchers(APIRoutes.FRIENDS_GET_ALL).authenticated()
+                        .requestMatchers(APIRoutes.FRIENDS_REMOVE).authenticated()
+                        .requestMatchers(APIRoutes.FRIENDS_SEND).authenticated()
+                        .requestMatchers(APIRoutes.FRIENDS_RESPOND).authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

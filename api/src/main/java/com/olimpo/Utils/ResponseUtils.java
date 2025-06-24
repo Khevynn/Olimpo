@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.olimpo.DTO.Responses.APIResponse;
-import com.olimpo.DTO.Responses.LoginResponse;
+import com.olimpo.DTO.Responses.Auth.LoginResponse;
 
 public class ResponseUtils {
     // Success Responses

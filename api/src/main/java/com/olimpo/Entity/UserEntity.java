@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SourceType;
 
+import com.olimpo.Enums.AccountStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +33,7 @@ public class UserEntity {
      @NotBlank(message = "O nome de usuário é obrigatório")
      @Column(name="username")
      @Getter @Setter
-     private String user;
+     private String username;
 
      @NotBlank(message = "A tag é obrigatória")
      @Column(name="tag")

@@ -5,8 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import com.olimpo.DTO.Requests.UpdateProfileRequestDTO;
-
+import com.olimpo.DTO.Requests.Profile.UpdateProfileRequestDTO;
 import com.olimpo.DTO.Responses.APIResponse;
 import com.olimpo.Routes.APIRoutes;
 import com.olimpo.Services.ProfileService;

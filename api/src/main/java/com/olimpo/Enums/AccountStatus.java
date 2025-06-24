@@ -1,4 +1,4 @@
-package com.olimpo.Entity;
+package com.olimpo.Enums;
 
 public enum AccountStatus {
     Activated,

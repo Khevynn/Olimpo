@@ -1,6 +1,7 @@
-package com.olimpo.DTO.Responses;
+package com.olimpo.DTO.Responses.Profile;
 
-import com.olimpo.Entity.AccountStatus;
+import com.olimpo.DTO.Responses.APIResponse;
+import com.olimpo.Enums.AccountStatus;
 
 import lombok.Getter;
 import lombok.Setter;
