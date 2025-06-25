@@ -39,7 +39,7 @@ public class SecurityConfig {
                         .requestMatchers(APIRoutes.USER_DELETE_ROUTE).authenticated()
 
                         .requestMatchers(APIRoutes.FRIENDS_GET_ALL).authenticated()
-                        .requestMatchers(APIRoutes.FRIENDS_REMOVE).authenticated()
+                        .requestMatchers(APIRoutes.FRIENDS_DELETE).authenticated()
                         .requestMatchers(APIRoutes.FRIENDS_SEND).authenticated()
                         .requestMatchers(APIRoutes.FRIENDS_RESPOND).authenticated()
                         .anyRequest().authenticated()

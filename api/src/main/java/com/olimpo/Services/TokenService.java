@@ -106,7 +106,7 @@ public class TokenService {
 
     /**
      * Gets the expiration time for access tokens.
-     * @return The expiration time (1 minute from now)
+     * @return The expiration time (15 minutes from now)
      */
     private Instant getAccessTokenExpiration() {
         return LocalDateTime.now().plusMinutes(15).toInstant(ZoneOffset.of("+01:00"));

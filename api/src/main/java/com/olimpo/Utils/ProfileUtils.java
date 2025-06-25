@@ -35,11 +35,11 @@ public class ProfileUtils {
 
     public static UserEntity getUserOrThrow(UserRepository userRepository, String email) {
         return userRepository.findByEmail(email)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado."));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Email de usuário não encontrado."));
     }
     public static UserEntity getUserOrThrow(UserRepository userRepository, String username, String tag) {
         return userRepository.findByUsernameAndTag(username, tag)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado."));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário e tag não encontrados."));
     }
 
     // Private Methods

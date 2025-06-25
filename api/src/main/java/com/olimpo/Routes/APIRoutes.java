@@ -19,7 +19,7 @@ public class APIRoutes {
     public static final String FRIENDS_SEND = "/friends/send";
     public static final String FRIENDS_RESPOND = "/friends/{requestId}/respond";
     public static final String FRIENDS_GET_ALL = "/friends/";
-    public static final String FRIENDS_REMOVE = "/friends/remove";
+    public static final String FRIENDS_DELETE = "/friends/delete";
 
     //Tournaments routes
     // public static final String TOURNAMENT_CREATE_ROUTE = "/tournaments/create";

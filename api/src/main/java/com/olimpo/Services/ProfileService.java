@@ -3,9 +3,11 @@ package com.olimpo.Services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.olimpo.DTO.Requests.Profile.UpdateProfileRequestDTO;
 import com.olimpo.DTO.Responses.APIResponse;
@@ -33,8 +35,14 @@ public class ProfileService {
             user.setAccountStatus(AccountStatus.Deleted);
             userRepository.save(user);
 
-            return ResponseUtils.ok("Perfil deletado com sucesso.");
+            return ResponseUtils.ok("Profile deleted successfully.");
 
+        } catch(ResponseStatusException e){
+            System.out.println(e.getMessage());
+            if(e.getStatusCode() == HttpStatus.NOT_FOUND){
+                return ResponseUtils.notFound(e.getMessage());
+            }
+            return ResponseUtils.serverError(ResponseUtils.INTERNAL_SERVER_ERROR);
         } catch(Exception e) {
             System.out.println(e.getMessage());
             return ResponseUtils.serverError(ResponseUtils.INTERNAL_SERVER_ERROR);
@@ -61,7 +69,7 @@ public class ProfileService {
                 userSearched.get().getValorantUsername(),
                 userSearched.get().getValorantTag(),
                 userSearched.get().getAccountStatus(),
-                "Perfil carregado com sucesso."
+                "Profile loaded successfully."
             ));
 
         } catch(Exception e) {
@@ -82,9 +90,15 @@ public class ProfileService {
                 user.getValorantUsername(),
                 user.getValorantTag(),
                 user.getAccountStatus(),
-                "Perfil carregado com sucesso."
+                "Profile loaded successfully."
             ));
 
+        } catch(ResponseStatusException e){
+            System.out.println(e.getMessage());
+            if(e.getStatusCode() == HttpStatus.NOT_FOUND){
+                return ResponseUtils.notFound(e.getMessage());
+            }
+            return ResponseUtils.serverError(ResponseUtils.INTERNAL_SERVER_ERROR);
         } catch(Exception e) {
             System.out.println(e.getMessage());
             return ResponseUtils.serverError(ResponseUtils.INTERNAL_SERVER_ERROR);
@@ -105,8 +119,14 @@ public class ProfileService {
             }
 
             updateUserProfile(user, request);
-            return ResponseUtils.ok("Perfil atualizado com sucesso.");
+            return ResponseUtils.ok("Profile updated successfully.");
 
+        } catch(ResponseStatusException e){
+            System.out.println(e.getMessage());
+            if(e.getStatusCode() == HttpStatus.NOT_FOUND){
+                return ResponseUtils.notFound(e.getMessage());
+            }
+            return ResponseUtils.serverError(ResponseUtils.INTERNAL_SERVER_ERROR);
         } catch(Exception e) {
             System.out.println(e.getMessage());
             return ResponseUtils.serverError(ResponseUtils.INTERNAL_SERVER_ERROR);
@@ -132,7 +152,7 @@ public class ProfileService {
         }
         
         if(!PasswordUtils.passwordMatches(request.getOldPassword(), user.getPassword())) {
-            return ResponseUtils.unauthorized("Senha antiga inválida.");
+            return ResponseUtils.unauthorized("Invalid old password.");
         }
 
         Optional<UserEntity> existingUser = userRepository.findByUsernameAndTag(request.getNewUsername(), request.getNewTag());

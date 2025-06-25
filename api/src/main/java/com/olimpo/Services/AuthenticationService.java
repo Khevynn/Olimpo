@@ -4,8 +4,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.olimpo.DTO.Requests.Auth.LoginRequestDTO;
 import com.olimpo.DTO.Requests.Auth.RegisterRequestDTO;
@@ -35,19 +37,26 @@ public class AuthenticationService {
 
     // Public Methods
     public ResponseEntity<?> refreshToken(String refreshToken, HttpServletResponse response) {
-        if (refreshToken == null || refreshToken.isEmpty()) {
-            return ResponseUtils.missingToken();
+        try {
+            if (refreshToken == null || refreshToken.isEmpty()) {
+                return ResponseUtils.missingToken();
+            }
+
+            String userEmail = tokenService.validateRefreshToken(refreshToken);
+            if (userEmail == null) {
+                return ResponseUtils.invalidToken();
+            }
+
+            UserEntity user = ProfileUtils.getUserOrThrow(userRepository, userEmail);
+            String accessToken = generateAccessAndRefreshTokens(user, response);
+
+            return ResponseEntity.ok().body(Map.of("accessToken", accessToken));
+        } catch (ResponseStatusException e) {
+            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                return ResponseUtils.notFound(e.getMessage());
+            }
+            throw e;
         }
-
-        String userEmail = tokenService.validateRefreshToken(refreshToken);
-        if (userEmail == null) {
-            return ResponseUtils.invalidToken();
-        }
-
-        UserEntity user = ProfileUtils.getUserOrThrow(userRepository, userEmail);
-        String accessToken = generateAccessAndRefreshTokens(user, response);
-
-        return ResponseEntity.ok().body(Map.of("accessToken", accessToken));
     }
 
     public ResponseEntity<APIResponse> login(LoginRequestDTO request, HttpServletResponse response) {
@@ -85,8 +94,13 @@ public class AuthenticationService {
             clearUserRefreshToken(user);
             sendRefreshTokenCookie(response, "");
 
-            return ResponseUtils.ok("Logout realizado com sucesso.");
-
+            return ResponseUtils.ok("Logout successful.");
+        } catch(ResponseStatusException e){
+            System.out.println(e.getMessage());
+            if(e.getStatusCode() == HttpStatus.NOT_FOUND){
+                return ResponseUtils.notFound(e.getMessage());
+            }
+            return ResponseUtils.serverError(ResponseUtils.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             return handleLogoutError(e);
         }
@@ -108,8 +122,14 @@ public class AuthenticationService {
             }
 
             UserEntity user = createNewUser(request, tag);
-            return ResponseUtils.created("Usuário registrado com sucesso.");
+            return ResponseUtils.created("User registered successfully.");
 
+        } catch(ResponseStatusException e){
+            System.out.println(e.getMessage());
+            if(e.getStatusCode() == HttpStatus.NOT_FOUND){
+                return ResponseUtils.notFound(e.getMessage());
+            }
+            return ResponseUtils.serverError(ResponseUtils.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             return handleRegistrationError(e);
         }
@@ -175,6 +195,6 @@ public class AuthenticationService {
 
     private ResponseEntity<APIResponse> handleRegistrationError(Exception e) {
         System.out.println(e.getMessage());
-        return ResponseUtils.serverError("Erro interno do servidor ao criar usuário.");
+        return ResponseUtils.serverError("Internal server error while creating user.");
     }
 } 
