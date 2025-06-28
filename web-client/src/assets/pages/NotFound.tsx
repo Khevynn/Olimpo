@@ -11,8 +11,8 @@ function NotFound() {
 
         {/* TEXT */}
         <div className="flex flex-col items-center justify-center w-screen h-screen space-y-5">
-              <h1 className="font-bold text-4xl text-white z-10">Página não encontrada.</h1>
-              <h1 className="text-2xl text-white z-10">Parece que a rota inseride está incorreta. Verifique-a e tente novamente.</h1>
+              <h1 className="font-bold text-4xl text-white z-10 text-center">Página não encontrada.</h1>
+              <h1 className="text-2xl text-white z-10 text-center">Parece que a rota inserida está incorreta. Verifique-a e tente novamente.</h1>
         </div>
     </div>
   )

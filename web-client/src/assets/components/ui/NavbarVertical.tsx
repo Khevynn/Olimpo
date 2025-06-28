@@ -9,7 +9,7 @@ import {
 } from "../../routes/navigation";
 
 interface NavbarProps {
-  active: string;
+  active?: string;
 }
 
 function NavbarVertical({ active }: NavbarProps) {
@@ -23,17 +23,17 @@ function NavbarVertical({ active }: NavbarProps) {
 
   return (
     <div
-      className="bg-dark-100 h-[90dvh] w-[90px] 
-    absolute left-10 inset-y-0 my-auto rounded-2xl 
-    flex flex-col items-center py-10 justify-between"
+      className="bg-dark-100 w-[90vw] h-[70px] lg:h-[90dvh] lg:w-[90px] 
+    absolute top-5 lg:left-10 lg:inset-y-0  lg:my-auto rounded-2xl 
+    flex flex-row lg:flex-col items-between justify-center lg:items-center py-10 lg:justify-between px-10 lg:px-0"
     >
-      <div className="flex flex-col items-center w-full">
-        <img className="w-10 mb-10" src="/logo2.png" alt="logo" />
+      <div className="flex flex-row lg:flex-col items-center w-full">
+        <img className="w-10 lg:mb-5 mr-10 lg:mr-0" src="/logo2.png" alt="logo" />
         {tabs.map(({ key, Icon, onclick }) => (
           <div
-            className={`w-full flex justify-center items-center h-15 ${
+            className={`w-20 lg:w-full flex justify-center items-center h-15 ${
               active === key
-                ? "text-yellow-theme border-r-2 border-yellow-theme"
+                ? "text-yellow-theme border-t-2 lg:border-t-0 lg:border-r-2 border-yellow-theme"
                 : "text-white"
             }`}
             onClick={onclick}
@@ -42,7 +42,7 @@ function NavbarVertical({ active }: NavbarProps) {
           </div>
         ))}
       </div>
-      <div className="flex flex-col items-center space-y-7">
+      <div className="flex flex-row lg:flex-col items-center lg:space-y-7">
         <MessageCircle
           className="text-white w-10"
           onClick={() => goToMessages(navigate)}

@@ -20,7 +20,7 @@ function Login() {
   };
 
   //@ts-ignore auth fetch
-  const { status, mutate, isPending } = UseAuth(import.meta.env.VITE_API_AUTH);
+  const { status, mutate, isPending, data } = UseAuth(import.meta.env.VITE_API_AUTH);
 
   const HandleLogin = (data: LoginSchema) => {
     mutate(data);
@@ -38,7 +38,12 @@ function Login() {
   //Go to home
   useEffect(() => {
     if (status.success){
-      goToHome(navigate)
+      try {
+        localStorage.setItem("token", data.token)
+        goToHome(navigate);
+      } catch (error) {
+        
+      }
     }
   }, [status])
 

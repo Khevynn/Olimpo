@@ -29,11 +29,13 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // the browser sends an OPTIONS before anything
+
                         .requestMatchers(HttpMethod.POST, APIRoutes.REFRESH_TOKEN_ROUTE).permitAll()
                         .requestMatchers(HttpMethod.POST, APIRoutes.USER_LOGIN_ROUTE).permitAll()
                         .requestMatchers(HttpMethod.POST, APIRoutes.USER_REGISTER_ROUTE).permitAll()
                         .requestMatchers(HttpMethod.GET, APIRoutes.USER_LOGOUT_ROUTE).authenticated()
-                        
+
                         .requestMatchers(APIRoutes.USER_GET_PROFILE_ROUTE).authenticated()
                         .requestMatchers(APIRoutes.USER_UPDATE_PROFILE_ROUTE).authenticated()
                         .requestMatchers(APIRoutes.USER_DELETE_ROUTE).authenticated()
@@ -42,8 +44,7 @@ public class SecurityConfig {
                         .requestMatchers(APIRoutes.FRIENDS_DELETE).authenticated()
                         .requestMatchers(APIRoutes.FRIENDS_SEND).authenticated()
                         .requestMatchers(APIRoutes.FRIENDS_RESPOND).authenticated()
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
@@ -54,8 +55,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 }
-

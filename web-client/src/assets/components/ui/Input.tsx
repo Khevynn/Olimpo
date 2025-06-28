@@ -1,6 +1,4 @@
 
-
-
 function Input({error, ...rest}: any) {
   return (
     <div>

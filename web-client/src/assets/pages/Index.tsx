@@ -14,7 +14,7 @@ function Index() {
 
   return (
     <div className="w-screen">
-      <div className="w-full h-[900px] bg-neutral-950 bg-[url(/wallpaper.png)] bg-cover bg-fixed">
+      <div className="w-full h-[900px] bg-dark-300 bg-[url(/wallpaper.png)] bg-cover bg-fixed">
 
 
         {/* Navbar */}
@@ -27,12 +27,9 @@ function Index() {
             <button className="cursor-pointer" onClick={onRegisterRedirect}>
               Registrar-se
             </button>
-            <button
-              className="bg-yellow-600 font-bold rounded-2xl px-7 py-1 cursor-pointer"
-              onClick={onLoginRedirect}
-            >
-              Entrar
-            </button>
+            <div className="">
+              <Button text="Entrar" onClick={onLoginRedirect} />
+            </div>
           </div>
         </div>
 
@@ -65,7 +62,7 @@ function Index() {
 
       
       {/* Section 3*/}
-      <div className="w-full bg-neutral-950">
+      <div className="w-full bg-dark-300">
         <div className="max-w-7xl mx-auto h-[600px] flex flex-col-reverse md:flex-row justify-center md:justify-between items-center text-white px-5 py-8 space-y-3">
           <div
             className="w-full md:w-auto flex justify-center md:justify-start  "
@@ -91,13 +88,13 @@ function Index() {
       </div>
 
       {/* Footer */}
-      <div className="w-full bg-neutral-950 bg-[url(/wallpaper.png)] bg-fixed bg-bottom">
+      <div className="w-full bg-dark-300 bg-[url(/wallpaper.png)] bg-fixed bg-bottom">
         <div className="grid md:grid-cols-2 min-h-[300px] space-y-5 p-3">
           <div
             className="flex justify-center items-center flex-col space-y-3"
             
           >
-            <h1 className="text-bold text-neutral-800 text-2xl">Contate-nos</h1>
+            <h1 className="text-bold text-white text-2xl">Contate-nos</h1>
             <p className="text-white w-[300px] text-center">
               Telefone:15 99999-1111
             </p>
@@ -107,7 +104,7 @@ function Index() {
             className="flex justify-center items-center flex-col space-y-3"
             
           >
-            <h1 className="text-bold text-neutral-800 text-2xl">Sobre nós</h1>
+            <h1 className="text-bold text-white text-2xl">Sobre nós</h1>
             <p className="text-white w-[300px] text-center">
               Somos uma pequena empresa com foco na criação de plataforma de
               jogos.
@@ -118,7 +115,7 @@ function Index() {
       </div>
 
       {/* Copright */}
-      <div className="w-full min-h-[50px] bg-black flex justify-center items-center">
+      <div className="w-full min-h-[50px] bg-dark-300 flex justify-center items-center">
         <h2 className="text-white text-center p-5">
           Copyright ©2025 Olimpo Desenvolvido por Vitor Miranda e Khevynn Sá
         </h2>

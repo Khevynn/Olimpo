@@ -7,6 +7,7 @@ export const UseAuth: any = (url: string) => {
     success: false,
     message: "",
   })
+  const [data, setData] = useState("")
 
   const {mutate, isPending} = useMutation({
     mutationFn: (data) => axios.post(url, data).then((res) => res.data),
@@ -15,6 +16,7 @@ export const UseAuth: any = (url: string) => {
         success: true,
         message: data.message,
       })
+      setData(data)
     },
     onError: (error: AxiosError) => {
       const axiosError = error as AxiosError<{message: string}>
@@ -29,6 +31,6 @@ export const UseAuth: any = (url: string) => {
     },
   })
 
-  return {status, mutate, isPending}
+  return {status, mutate, isPending, data}
 }
 
