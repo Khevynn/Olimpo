@@ -2,8 +2,6 @@ package com.olimpo.Routes;
 
 public class APIRoutes {
     
-    public static final String VERIFY_TOKEN_ROUTE = "/auth/";
-
     //Auth routes
     public static final String REFRESH_TOKEN_ROUTE = "/auth/refresh";
     public static final String USER_LOGIN_ROUTE = "/auth/login";

@@ -128,7 +128,7 @@ public class AuthenticationService {
             }
 
             UserEntity user = createNewUser(request, tag);
-            return ResponseUtils.created("User registered successfully.");
+            return ResponseUtils.created("Usuário cadastrado com sucesso.");
 
         } catch(ResponseStatusException e){
             System.out.println(e.getMessage());
