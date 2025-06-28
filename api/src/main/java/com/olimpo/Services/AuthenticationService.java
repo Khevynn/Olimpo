@@ -74,6 +74,12 @@ public class AuthenticationService {
             String accessToken = generateAccessAndRefreshTokens(user, response);
             return ResponseUtils.loginSuccess(accessToken);
 
+        } catch(ResponseStatusException e){
+            System.out.println(e.getMessage());
+            if(e.getStatusCode() == HttpStatus.NOT_FOUND){
+                return ResponseUtils.unauthorized(ResponseUtils.INVALID_CREDENTIALS);
+            }
+            return ResponseUtils.serverError(ResponseUtils.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             return handleLoginError(e);
         }
