@@ -13,15 +13,23 @@ import com.olimpo.DTO.Requests.Auth.RegisterRequestDTO;
 import com.olimpo.DTO.Responses.APIResponse;
 import com.olimpo.Routes.APIRoutes;
 import com.olimpo.Services.AuthenticationService;
+import com.olimpo.Utils.ResponseUtils;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
+
+    @GetMapping(APIRoutes.VERIFY_TOKEN_ROUTE)
+    public ResponseEntity<APIResponse> verifyToken() {
+        return ResponseUtils.ok("Token verified successfully.");
+    }
 
     @PostMapping(APIRoutes.USER_LOGIN_ROUTE)
     public ResponseEntity<APIResponse> login(@RequestBody @Valid LoginRequestDTO request, HttpServletResponse response) {
