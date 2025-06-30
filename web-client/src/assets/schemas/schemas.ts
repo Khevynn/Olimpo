@@ -26,7 +26,7 @@ export const profileSchema = z.object({
       /^[a-zA-Z0-9]+$/,
       "Gametag deve conter apenas letras ou números"
     ),
-    bio: z
+    description: z
     .string()
     .max(256, "Descrição muito extensa.")
 });

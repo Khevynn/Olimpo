@@ -55,7 +55,7 @@ function Register() {
         <div className="text-white text-sm font-thin h-[50px] text-center flex justify-center items-center">
           {isPending ? <Loading /> : status.message}
         </div>
-        <Button text="Registrar" />
+        <Button text="Registrar" type="submit" />
         <p className="text-sm text-grey-100 text-center">
           Já tem uma conta?
           <span

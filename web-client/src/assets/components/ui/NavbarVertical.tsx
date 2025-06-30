@@ -37,6 +37,7 @@ function NavbarVertical({ active }: NavbarProps) {
                 : "text-white"
             }`}
             onClick={onclick}
+            key={key}
           >
             <Icon />
           </div>

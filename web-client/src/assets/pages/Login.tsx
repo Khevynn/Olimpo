@@ -75,7 +75,7 @@ function Login() {
         </div>
 
         {/* BUTTON */}
-        <Button text="Entrar" />
+        <Button text="Entrar" type="submit"/>
 
         {/* CREATE ACCOUNT */}
         <p className="text-sm text-grey-100 text-center">
